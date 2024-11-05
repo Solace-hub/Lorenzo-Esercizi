@@ -8,15 +8,35 @@ class Prodotto:
         return self.prezzo_vendita / self.costo_produzione
     
 
+
+
+
 class Elettronica(Prodotto):
     def __init__(self, nome, costo_produzione, prezzo_vendita, garanzia):
         super().__init__(nome, costo_produzione, prezzo_vendita)
-        self.garanzia = garanzia
+        self.__garanzia = garanzia
+
+    def get_garanzia(self):
+        return self.__garanzia
+
+    def set_garanzia(self, garanzia):
+        self.__garanzia = garanzia
+
+
 
 class Abbigliamento(Prodotto):
-    def __initi__(self, nome, costo_produzione, prezzo_vendita, materiale):
+    def __init__(self, nome, costo_produzione, prezzo_vendita, materiale):
         super().__init__(nome, costo_produzione, prezzo_vendita)
-        self.materiale = materiale
+        self.__materiale = materiale
+
+    def get_materiale(self):
+        return self.__materiale
+    
+    def set_materiale(self, materiale):
+        self.__materiale = materiale
+
+
+
 
 
 
