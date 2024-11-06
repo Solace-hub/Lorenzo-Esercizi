@@ -18,6 +18,17 @@ class CartaDiCredito(MetodoPagamento):
         else:
             print("Non abbastanza fondi per effettuare il pagamento")
 
+    
+    def numero_carta(self):
+        return self.__numero_carta
+    
+    
+    def numero_carta(self, numero):
+        if len(numero) == 16 and numero.isdigit():
+            self.__numero_carta = numero
+        else:
+            print("Numero di carta non valido")
+
 
 class PayPal(MetodoPagamento):
     def __init__(self, username):
