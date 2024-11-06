@@ -5,11 +5,7 @@ class Prodotto:
         self.prezzo_vendita = prezzo_vendita
 
     def calcola_profitto(self):
-        return self.prezzo_vendita / self.costo_produzione
-    
-
-
-
+        return self.prezzo_vendita - self.costo_produzione
 
 class Elettronica(Prodotto):
     def __init__(self, nome, costo_produzione, prezzo_vendita, garanzia):
@@ -22,8 +18,6 @@ class Elettronica(Prodotto):
     def set_garanzia(self, garanzia):
         self.__garanzia = garanzia
 
-
-
 class Abbigliamento(Prodotto):
     def __init__(self, nome, costo_produzione, prezzo_vendita, materiale):
         super().__init__(nome, costo_produzione, prezzo_vendita)
@@ -35,32 +29,45 @@ class Abbigliamento(Prodotto):
     def set_materiale(self, materiale):
         self.__materiale = materiale
 
-
-
 class Fabbrica:
-        def __init__(self):
-            self.inventario = {}
+    def __init__(self):
+        self.inventario = {}
 
-        def aggiungi_prodotto(self, prodotto, quantità):
-            if prodotto in self.inventario:
-                self.inventario[prodotto] += quantità
-            print(f"Il {prodotto} è stato aggiunto con successo")
+    def aggiungi_prodotto(self, prodotto, quantita):
+        if prodotto in self.inventario:
+            self.inventario[prodotto] += quantita
+        else:
+            self.inventario[prodotto] = quantita
+        print(f"Il prodotto '{prodotto.nome}' è stato aggiunto con successo.")
 
-        def vendi_prodotto(self, prodotto, quantità):
-            if prodotto in self.inventario and self.inventario[prodotto] >= quantità:
-                self.inventario[prodotto] -= quantità
-                profitto = prodotto * quantità
-            print(f"Il {prodotto} è stato venduto con successo e il profitto ammonta a: {profitto} ")
+    def vendi_prodotto(self, prodotto, quantita):
+        if prodotto in self.inventario and self.inventario[prodotto] >= quantita:
+            self.inventario[prodotto] -= quantita
+            profitto = prodotto.calcola_profitto() * quantita
+            self._calcola_totale_profitto(profitto)
+            print(f"Il prodotto '{prodotto.nome}' è stato venduto con successo e il profitto è: {profitto}")
+        else:
+            print("Quantità insufficiente")
 
-        def resi_prodotto(self, prodotto, quantità):
-            if prodotto in self.inventario:
-                self.inventario[prodotto] += quantità
-                print(f"{prodotto} e {quantità} ricevuti come reso in deposito")
+    def resi_prodotto(self, prodotto, quantita):
+        if prodotto in self.inventario:
+            self.inventario[prodotto] += quantita
+            print(f"{quantita} prodotto '{prodotto.nome}' ricevute come reso.")
+
+    def _calcola_totale_profitto(self, profitto):
+        if hasattr(self, '_totale_profitto'):
+            self._totale_profitto += profitto
+        else:
+            self._totale_profitto = profitto
+
+    def get_totale_profitto(self):
+        return getattr(self, '_totale_profitto', 0)
+
 
 
 
 def descrizione_prodotto(prodotto):
-    descrizione_prodotto = f"Nome: {prodotto.nome}, Prezzo di vendita: {prodotto.prezzo_vendita}€, Profitto: {prodotto.calcola_profitto()}€"
+    descrizione_prodotto = (f"Nome: {prodotto.nome}, Prezzo di vendita: {prodotto.prezzo_vendita}€, Profitto: {prodotto.calcola_profitto()}€")
     if isinstance(prodotto, Elettronica):
         return descrizione_prodotto + f", Garanzia di tot {prodotto.get_garanzia()} anni"
     elif isinstance(prodotto, Abbigliamento):
