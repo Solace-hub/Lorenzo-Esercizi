@@ -37,15 +37,12 @@ class Abbigliamento(Prodotto):
 
 
 
-
-
-
 class Fabbrica:
         def __init__(self):
             self.inventario = {}
 
         def aggiungi_prodotto(self, prodotto, quantità):
-            if prodotto in self.inventario:
+            if prodotto.nome in self.inventario:
                 self.inventario[prodotto] += quantità
             print(f"Il {prodotto} è stato aggiunto con successo")
 
@@ -59,16 +56,26 @@ class Fabbrica:
             if prodotto in self.inventario:
                 self.inventario[prodotto] += quantità
                 print(f"{prodotto} e {quantità} ricevuti come reso in deposito")
+
+
+
+def descrizione_prodotto(prodotto):
+    descrizione_prodotto = f"Nome: {prodotto.nome}, Prezzo di vendita: {prodotto.prezzo_vendita}€, Profitto: {prodotto.calcola_profitto()}€"
+    if isinstance(prodotto, Elettronica):
+        return descrizione_prodotto + f", Garanzia di tot {prodotto.get_garanzia()} anni"
+    elif isinstance(prodotto, Abbigliamento):
+        return descrizione_prodotto + f", Materiale di questa qualità: {prodotto.get_materiale()}"
+    
+    return descrizione_prodotto
+
                 
+#Esempio
+telefono = Elettronica("Smartphone", 150, 350, 1)
+maglietta = Abbigliamento("T-Shirt", 10, 35, "Cotone")
 
+print(descrizione_prodotto(telefono))   
+print(descrizione_prodotto(maglietta)) 
 
-
-'''prodotto1 = Prodotto("Smartphone", 100, 350)
-fabbrica = Fabbrica()
-fabbrica.aggiungi_prodotto(prodotto1, 10)
-fabbrica.vendi_prodotto(prodotto1, 3)
-fabbrica.resi_prodotto(prodotto1, 1)
-'''
 
     
 
