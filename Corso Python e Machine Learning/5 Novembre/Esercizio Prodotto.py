@@ -42,7 +42,7 @@ class Fabbrica:
             self.inventario = {}
 
         def aggiungi_prodotto(self, prodotto, quantità):
-            if prodotto.nome in self.inventario:
+            if prodotto in self.inventario:
                 self.inventario[prodotto] += quantità
             print(f"Il {prodotto} è stato aggiunto con successo")
 
