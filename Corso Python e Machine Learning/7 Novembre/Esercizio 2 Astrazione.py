@@ -21,15 +21,19 @@ class Elettricista(ABC):
 
 class ElettricistaSpecializzato(Operaio, Elettricista):
     def esegui_lavoro(self):
+        super().esegui_lavoro()
         pass
 
     def installa_impianto(self):
+        super().installa_impianto()
         pass
 
 
 class MuratoreSpecializzato(Operaio, Muratore):
     def esegui_lavoro(self):
+        super().esegui_lavoro()
         pass
 
     def costruisci_muri(self):
+        super().costruisci_muri()
         pass
