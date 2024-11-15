@@ -12,23 +12,28 @@ options = Options()
 options.add_argument("--headless")
 driver = webdriver.Firefox(options=options)
 driver.get("https://practicetestautomation.com/practice-test-login/")
+time.sleep(3)
 
 username_field = driver.find_element(By.ID, "username")
 password_field = driver.find_element(By.ID, "password")
+time.sleep(3)
+
 
 username_field.send_keys("student") 
 password_field.send_keys("Password123")
+time.sleep(3)
 
 submit_button = driver.find_element(By.ID, "submit")
 submit_button.click()
-
-time.sleep(5)
+time.sleep(3)
 
 page_text = driver.page_source
 print(page_text)
+time.sleep(3)
 
 logout_button =  driver.find_element(By.LINK_TEXT, "Log out")
 logout_button.click()
+time.sleep(3)
 
 print(driver.title)
 driver.quit()
